@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 4 - Daily Habits Questions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+
+    <div class="fixed-title-purple">
+        <div class="header-flex">
+            <span class="header-title">🟩 Step 4: Daily Habits Questions</span>
+            <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+        </div>
+    </div>
+
+    <form method="POST" action="/step4">
+        <div class="scroll-area">
+            <div class="vertical-scroll-container">
+
+                <div class="history-entry">
+                    <p><strong>1.</strong> Daily Phone Usage (hours):</p>
+                    <input type="number" name="Daily_Phone_Usage_Hours" min="0" max="24" required>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>2.</strong> Difficulty Organizing Tasks:</p>
+                    <label><input type="radio" name="Difficulty_Organizing_Tasks" value="1" required> Yes</label><br>
+                    <label><input type="radio" name="Difficulty_Organizing_Tasks" value="0"> No</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>3.</strong> Focus Score:</p>
+                    <input type="range" id="focusSlider" name="Focus_Score_Video" min="0" max="10" value="5" step="1" required oninput="updateFocusValue(this.value)">
+                    
+                    <div class="range-labels">
+                        {% for i in range(11) %}
+                            <span>{{ i }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                
+                
+
+                <div class="history-entry">
+                    <p><strong>4.</strong> Daily Coffee/Tea Consumption (cups/day):</p>
+                    {% for i in range(0, 6) %}
+                        <label><input type="radio" name="Daily_Coffee_Tea_Consumption" value="{{ i }}" required> {{ i }}</label><br>
+                    {% endfor %}
+                    <label><input type="radio" name="Daily_Coffee_Tea_Consumption" value="6"> More than 5</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>5.</strong> Learning Difficulties:</p>
+                    <label><input type="radio" name="Learning_Difficulties" value="1" required> Yes</label><br>
+                    <label><input type="radio" name="Learning_Difficulties" value="0"> No</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>6.</strong> Anxiety/Depression Levels:</p>
+                    <label><input type="radio" name="Anxiety_Depression_Levels" value="0" required> 0 - None</label><br>
+                    <label><input type="radio" name="Anxiety_Depression_Levels" value="1"> 1 - Mild</label><br>
+                    <label><input type="radio" name="Anxiety_Depression_Levels" value="2"> 2 - Moderate</label><br>
+                    <label><input type="radio" name="Anxiety_Depression_Levels" value="3"> 3 - Severe</label><br>
+                    <label><input type="radio" name="Anxiety_Depression_Levels" value="4"> 4 - Extreme</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>7.</strong> Family History of Autism:</p>
+                    <label><input type="radio" name="family_mem_with_ASD" value="1" required> Yes</label><br>
+                    <label><input type="radio" name="family_mem_with_ASD" value="0"> No</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>8.</strong> Who completed the test?</p>
+                    <label><input type="radio" name="who_completed_the_test" value="1" required> Self</label><br>
+                    <label><input type="radio" name="who_completed_the_test" value="0"> Someone else</label>
+                </div>
+
+                <div class="history-entry">
+                    <p><strong>9.</strong> Family History (ADHD related):</p>
+                    <label><input type="radio" name="family_history" value="1" required> Yes</label><br>
+                    <label><input type="radio" name="family_history" value="0"> No</label>
+                </div>
+
+                <div style="text-align:center; margin-top: 30px;">
+                    <button type="submit" class="cta-btn">✅ Finish Diagnosis</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

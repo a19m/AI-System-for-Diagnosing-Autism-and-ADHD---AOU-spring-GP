@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 3 - Hyperactivity & Impulsivity Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+
+    <div class="fixed-title-purple">
+        <div class="header-flex">
+            <span class="header-title">🟨 Step 3: Hyperactivity & Impulsivity Assessment</span>
+            <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+        </div>
+    </div>
+
+    <form method="POST" action="/step3">
+        <div class="scroll-area">
+            <div class="vertical-scroll-container">
+
+                {% set questions = [
+                    "Does the child fidget with hands or feet or squirm in seat?",
+                    "Does the child leave seat in situations where remaining seated is expected?",
+                    "Does the child run about or climb excessively in inappropriate situations?",
+                    "Does the child have difficulty playing or engaging in activities quietly?",
+                    "Is the child often 'on the go' or acts as if 'driven by a motor'?",
+                    "Does the child talk excessively?",
+                    "Does the child blurt out answers before questions have been completed?",
+                    "Does the child have difficulty waiting their turn?",
+                    "Does the child interrupt or intrude on others (e.g., conversations or games)?"
+                ] %}
+
+                {% for question in questions %}
+                    <div class="history-entry">
+                        <p><strong>Q{{ loop.index }}.</strong> {{ question }}</p>
+                        <label><input type="radio" name="Q2_{{ loop.index }}" value="0" required> Never</label><br>
+                        <label><input type="radio" name="Q2_{{ loop.index }}" value="1"> Sometimes</label><br>
+                        <label><input type="radio" name="Q2_{{ loop.index }}" value="2"> Often</label><br>
+                        <label><input type="radio" name="Q2_{{ loop.index }}" value="3"> Always</label>
+                    </div>
+                {% endfor %}
+
+                <div style="text-align:center; margin-top: 20px;">
+                    <button type="submit" class="cta-btn">Continue to Final Step ➡️</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

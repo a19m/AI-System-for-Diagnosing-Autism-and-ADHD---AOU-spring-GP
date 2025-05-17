@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autism & ADHD Diagnosis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="index-body">
+    <div class="container">
+        <div class="left-section">
+            <h1>Autism & ADHD<br>Diagnosis System</h1>
+            <img src="{{ url_for('static', filename='images/autism-ribbon.png') }}" alt="Autism Awareness Ribbon">
+            <p class="tagline">AI-powered diagnostic system for accurate autism and ADHD screening through behavioral analysis and facial recognition.</p>
+        </div>
+        <div class="right-section">
+            <h1>Intelligent Diagnostic System</h1>
+            <h3>Our Approach</h3>
+            <p>This system provides rapid and accurate initial screening for autism and ADHD by analyzing behavioral questionnaires and facial images.</p>
+            <h3>Intelligent Models</h3>
+            <ul>
+                <li>Logistic Regression analysis of autism-related behavioral responses</li>
+                <li>Random Forest analysis of behavioral and lifestyle patterns</li>
+                <li>CNN-based facial image analysis for visual indicators</li>
+            </ul>
+            <a href="/login"><button class="cta-btn">Get Started</button></a>
+        </div>
+    </div>
+</body>
+</html>

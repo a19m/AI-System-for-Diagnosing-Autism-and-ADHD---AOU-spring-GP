@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+
+    <div class="result-container">
+        <h1 class="page-title">🧠 Diagnosis Result</h1>
+
+        <!-- Autism Model -->
+        <div class="result-card">
+            <h2>🧠 Autism Survey Diagnosis (Model Prediction)</h2>
+            <p><strong>Result:</strong> {{ autism_survey_result }}</p>
+            <p>🟣 Probability of <strong>Autistic</strong>: {{ autistic_prob }}%</p>
+        </div>
+
+        <!-- Manual Scoring -->
+        <div class="result-card">
+            <h2>📝 Manual Scoring Based on Answers</h2>
+            <p><strong>Score:</strong> {{ autism_manual_score }} / 10</p>
+            <p><strong>Manual Diagnosis:</strong> {{ autism_manual_result }}</p>
+        </div>
+
+        <!-- ADHD Result -->
+        <div class="result-card">
+            <h2>🚀 ADHD Diagnosis</h2>
+            <p><strong>Result:</strong> {{ adhd_result }}</p>
+            <div class="prob-table">
+                {{ adhd_probabilities|safe }}
+            </div>
+        </div>
+
+        <!-- Face Analysis -->
+        <div class="result-card">
+            <h2>🧩 Face Analysis Diagnosis</h2>
+            <p><strong>Result:</strong> {{ face_result }}</p>
+            <p>Confidence: <strong>{{ face_confidence }}%</strong></p>
+        </div>
+
+        <!-- Send to Doctor -->
+        <div class="result-card">
+            <h2>📩 Send Your Report to a Doctor</h2>
+            <form method="POST" action="/send-to-doctor">
+                <label for="doctor_id">Choose a Doctor:</label><br>
+                <select name="doctor_id" required>
+                    {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}">{{ doctor.full_name }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label for="message">Message to Doctor:</label><br>
+                <textarea name="message" rows="4" cols="60" placeholder="Write your message..." required></textarea><br><br>
+
+                <button type="submit" class="cta-btn">Send to Doctor</button>
+            </form>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+            <a href="/diagnosis-history" class="back-link">📂 View Diagnosis History</a>
+        </div>
+    </div>
+
+</body>
+</html>

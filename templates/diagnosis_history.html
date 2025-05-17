@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <div class="fixed-title-purple">
+        <h2>📂 Diagnosis History</h2>
+    </div>
+
+    <div class="scroll-area">
+        {% if records %}
+            {% for record in records %}
+                <div class="history-entry">
+                    <h3>🗓️ {{ record.date.strftime('%Y-%m-%d %H:%M') }}</h3>
+                    <p><strong>🧠 Autism:</strong> {{ record.autism_survey_result }}</p>
+                    <p><strong>🚀 ADHD:</strong> {{ record.adhd_result }}</p>
+                    <p><strong>🧩 Face Analysis:</strong> {{ record.face_result }} ({{ record.face_confidence }})</p>
+
+                    <hr>
+
+                    {% set consultation = record.consultation %}
+                    {% if consultation %}
+                        <p><strong>👨‍⚕️ Doctor:</strong> {{ consultation.doctor.full_name }} ({{ consultation.doctor.email }})</p>
+                        <p><strong>📩 Your Message:</strong> {{ consultation.message_from_patient }}</p>
+                        {% if consultation.status == 'Replied' %}
+                            <p><strong>✅ Doctor Reply:</strong> {{ consultation.message_from_doctor }}</p>
+                        {% else %}
+                            <p><strong>🕒 Waiting for doctor's reply...</strong></p>
+                        {% endif %}
+                    {% else %}
+                        <p><em>ℹ️ No consultation submitted for this diagnosis.</em></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No previous diagnosis found.</p>
+        {% endif %}
+    </div>
+
+    <div class="fixed-footer">
+        <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+    </div>
+</body>
+</html>

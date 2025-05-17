@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #7b2ff7, #22c1c3);
+            margin: 0;
+            padding: 0;
+        }
+
+        .topbar {
+            background-color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #4b0082;
+        }
+
+        .topbar .logout {
+            position: absolute;
+            right: 30px;
+            background-color: #555;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .topbar .logout:hover {
+            background-color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            display: flex;
+            gap: 25px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .card img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-content p {
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .card-content hr {
+            margin: 15px 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #aaa;
+            resize: vertical;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #36005a;
+        }
+
+        .reply-section {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4b0082;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔝 Topbar -->
+    <div class="topbar">
+        <h2>👨‍⚕️ Patients Consultations</h2>
+        <a href="/logout" class="logout">🚪 Logout</a>
+    </div>
+
+    <!-- 🧠 Content -->
+    <div class="container">
+        {% for consult in consultations %}
+            <div class="card">
+                <img src="/{{ consult.patient.image_url }}" alt="Patient Photo">
+                <div class="card-content">
+                    <h3>👤 Patient: {{ consult.patient.full_name }}</h3>
+                    <p><strong>Age:</strong> {{ consult.patient.age }} |
+                       <strong>Gender:</strong> {{ 'Male' if consult.patient.gender == '1' else 'Female' }}</p>
+
+                    <hr>
+                    <p><strong>🧠 Autism:</strong> {{ consult.diagnosis.autism_survey_result }}</p>
+                    <p><strong>🚀 ADHD:</strong> {{ consult.diagnosis.adhd_result }}</p>
+                    <p><strong>🧩 Face Model:</strong> {{ consult.diagnosis.face_result }}</p>
+
+                    <hr>
+                    <p><strong>📩 Message from Patient:</strong> {{ consult.message_from_patient }}</p>
+
+                    {% if consult.status == 'Pending' %}
+                        <form method="POST" action="/doctor-reply/{{ consult.id }}">
+                            <label><strong>Your Reply:</strong></label>
+                            <textarea name="reply" rows="3" placeholder="Your diagnostic reply..." required></textarea><br>
+                            <button type="submit">Send Reply</button>
+                        </form>
+                    {% else %}
+                        <div class="reply-section">
+                            <strong>✅ Your Reply:</strong> {{ consult.message_from_doctor }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

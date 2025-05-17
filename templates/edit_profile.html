@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="index-body">
+
+<div class="container">
+    <div class="left-section">
+        <h2>Autism & ADHD<br>Diagnosis System</h2>
+        <img src="{{ url_for('static', filename='images/autism-ribbon.png') }}" alt="Autism Awareness Ribbon">
+        <p class="tagline">Update your profile details to keep your information accurate and up-to-date.</p>
+    </div>
+
+    <div class="right-section">
+        <div class="pro-badge">Pro</div>
+        <h1>Edit Your Profile 🖊️</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="full_name" value="{{ user.full_name }}" required placeholder="Full Name">
+            <input type="text" name="phone" value="{{ user.phone }}" placeholder="Phone Number">
+            <input type="number" name="age" value="{{ user.age }}" required placeholder="Age">
+            
+            <select name="gender" required>
+                <option value="1" {% if user.gender == '1' %}selected{% endif %}>Male</option>
+                <option value="2" {% if user.gender == '2' %}selected{% endif %}>Female</option>
+            </select>
+
+            <label>Update Profile Picture (Optional):</label>
+            <input type="file" name="photo">
+
+            <button type="submit" class="cta-btn">Save Changes</button>
+        </form>
+        <br>
+        <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+    </div>
+</div>
+<script>
+    const form = document.querySelector("form");
+    const button = form.querySelector("button");
+
+    form.addEventListener("submit", function () {
+        button.disabled = true;
+        button.innerHTML = 'Saving... <span class="spinner"></span>';
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 2 - Inattention Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+
+    <div class="fixed-title-purple">
+        <div class="header-flex">
+            <span class="header-title">🧠 Step 2: Inattention Assessment</span>
+            <a href="/dashboard" class="back-link">🏠 Back to Dashboard</a>
+        </div>
+    </div>
+
+    <form method="POST" action="/step2">
+        <div class="scroll-area">
+            <div class="vertical-scroll-container">
+
+                {% set questions = [
+                    "Does the child have difficulty paying close attention to details or makes careless mistakes in schoolwork or activities?",
+                    "Does the child have trouble keeping attention on tasks or play activities?",
+                    "Does the child seem not to listen when spoken to directly?",
+                    "Does the child not follow through on instructions and fails to finish tasks?",
+                    "Does the child have difficulty organizing tasks and activities?",
+                    "Does the child avoid or dislike tasks that require sustained mental effort?",
+                    "Does the child often lose things necessary for tasks or activities?",
+                    "Is the child easily distracted by outside stimuli?",
+                    "Does the child forget things in daily activities?"
+                ] %}
+
+                {% for question in questions %}
+                <div class="history-entry">
+                    <p><strong>Q{{ loop.index }}.</strong> {{ question }}</p>
+                    <label><input type="radio" name="Q1_{{ loop.index }}" value="0" required> Never</label><br>
+                    <label><input type="radio" name="Q1_{{ loop.index }}" value="1"> Sometimes</label><br>
+                    <label><input type="radio" name="Q1_{{ loop.index }}" value="2"> Often</label><br>
+                    <label><input type="radio" name="Q1_{{ loop.index }}" value="3"> Always</label>
+                </div>
+                {% endfor %}
+
+                <div style="text-align:center; margin-top: 20px;">
+                    <button type="submit" class="cta-btn">Continue to Step 3 ➡️</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>
